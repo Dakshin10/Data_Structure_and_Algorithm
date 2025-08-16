@@ -1,5 +1,5 @@
 
-public class Height_of_Tree {
+public class Height_of_Tree_Array {
 
     static class Node {
         Node left, right;
