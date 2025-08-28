@@ -38,28 +38,36 @@ public class DoublyLinkedList_ADTs {
 
     public static void AddPosition(int data, int pos) {
         Node newNode = new Node(data);
-        if (pos == 0 || head == null) {
-            newNode.next = head;
-            if (head != null)
-                head.prev = newNode;
-            head = newNode;
-            if (tail == null)
-                tail = newNode;
+
+        // Case 1: Empty list
+        if (head == null) {
+            head = tail = newNode;
             return;
         }
 
+        // Case 2: Insert at beginning
+        if (pos == 0) {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+            return;
+        }
+
+        // Traverse to (pos - 1)
         Node temp = head;
-        for (int i = 0; i < pos - 1 && temp != null; i++) {
+        for (int i = 0; i < pos - 1 && temp.next != null; i++) {
             temp = temp.next;
         }
 
-        if (temp == null || temp.next == null) {
+        // Case 3: Insert at end
+        if (temp.next == null) {
             tail.next = newNode;
             newNode.prev = tail;
             tail = newNode;
             return;
         }
 
+        // Case 4: Insert in middle
         newNode.next = temp.next;
         newNode.prev = temp;
         temp.next.prev = newNode;
